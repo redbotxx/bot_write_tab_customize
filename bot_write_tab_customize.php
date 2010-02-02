@@ -67,6 +67,8 @@ if(@txpinterface == 'admin') {
 
 global $bot_items;
 
+// TIP
+// I would store these in a named array and then pass them to the function by looping
 bot_wtc_insert_in_main_array ('textile_help!bot! (!bot!label!bot!)', '$("h3:has(a[href=#textile_help])")');
 bot_wtc_insert_in_main_array ('textile_help', '$("#textile_help")');
 bot_wtc_insert_in_main_array ('advanced_options!bot! (!bot!label!bot!)', '$("h3:has(a[href=#advanced])")');
@@ -187,6 +189,9 @@ function bot_wtc_fetch_db() // creates an array of values extracted from the dat
 
 function bot_get_cfs() // creates an array of all cfs for selectInput
 {
+  // TODO
+  // check if glz_custom_fields() exists, if it does use it's already define functions
+  // (including the global variables) to do the below
 	$r = safe_rows_start('name, val, html', 'txp_prefs','event = "custom" AND val != ""');
 	if ($r) {
 		global $arr_custom_fields;
@@ -204,6 +209,8 @@ function bot_get_cfs() // creates an array of all cfs for selectInput
 			$arr_custom_fields[$selector] = $val;
 		}
 	}
+	// TODO
+	// sort them by position, as they're entered in the db
 	natcasesort($arr_custom_fields); // sort cfs - used instead of asort because is case-insensitive
 	return $arr_custom_fields;
 };
@@ -327,7 +334,8 @@ function bot_wtc_check_install()
 //===========================================
 
 
-
+// TODO
+// use optgroup
 function bot_all_items_selectinput() // outputs all items for selectInput() (used for destination dropdown)
 {
 	global $bot_items;
@@ -484,8 +492,11 @@ function bot_wtc_tab($event, $step)
 	}
 
 	if ($step == 'update'){
-	    // set function variables
-		$new_item = isset($_POST['new_item']) ? $_POST['new_item'] : ''; //variable
+	  // set function variables
+	  // TIP
+	  // ps() does the same trick, including stripping
+	  // Take the first one as an example
+		$new_item = ps('new_item'); //variable
 		$new_item_position = isset($_POST['new_item_position']) ? $_POST['new_item_position'] : ''; //variable
 		$new_item_destination = isset($_POST['new_item_destination']) ? $_POST['new_item_destination'] : ''; //variable
 		$new_item_sections = isset($_POST['new_item_sections']) ? $_POST['new_item_sections'] : ''; //array
