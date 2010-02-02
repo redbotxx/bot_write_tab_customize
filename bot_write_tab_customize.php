@@ -190,7 +190,7 @@ function bot_wtc_fetch_db() // creates an array of values extracted from the dat
 function bot_get_cfs() // creates an array of all cfs for selectInput
 {
   // TODO
-  // check if glz_custom_fields() exists, if it does use it's already define functions
+  // check if glz_custom_fields() exists, if it does use the already define functions
   // (including the global variables) to do the below
 	$r = safe_rows_start('name, val, html', 'txp_prefs','event = "custom" AND val != ""');
 	if ($r) {
